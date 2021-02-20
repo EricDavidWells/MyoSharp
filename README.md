@@ -1,3 +1,8 @@
+### Update
+* Updated this library to build with newer versions of visual studio and .NET frameworks. Has been tested with Visual Studio 2019 targetting .NET framework 4.7.2.  
+* Added MultiMyoManager class for working with multiple myo armbands simultaneously, see Myosharp.ConsoleSample./MultipleMyoExample.cs for usage
+  * Implemented a FIFO Queue system into the MultiMyoManager class to improve sample rate consistency of the EMG data for real-time systems.  This arose as many EMG packets will be buffered and sent simultaneously rather than sequentially.
+
 MyoSharp
 ========
 ```
