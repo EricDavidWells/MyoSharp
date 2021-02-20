@@ -20,7 +20,7 @@ namespace MyoSharp.MultiMyo
     {
         IHub hub;
         IChannel channel;
-        static int maxMyoNum = 4;   // max number of myos connected
+        static int maxMyoNum = 10;   // max number of myos connected
 
         // Queue variables to hold data history
         int maxQueueLen = 10;
