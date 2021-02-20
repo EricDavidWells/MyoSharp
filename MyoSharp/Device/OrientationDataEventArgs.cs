@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Math;
@@ -28,8 +28,8 @@ namespace MyoSharp.Device
         public OrientationDataEventArgs(IMyo myo, DateTime timestamp, QuaternionF orientationData, double roll, double pitch, double yaw)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(orientationData != null, "orientationData");
+        //    Contract.Requires<ArgumentNullException>(myo != null, "myo");
+        //    Contract.Requires<ArgumentNullException>(orientationData != null, "orientationData");
 
             this.Orientation = orientationData;
             this.Roll = roll;

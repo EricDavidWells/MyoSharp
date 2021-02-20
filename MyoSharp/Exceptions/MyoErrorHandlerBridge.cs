@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -25,7 +25,7 @@ namespace MyoSharp.Exceptions
         #region Methods
         public static IMyoErrorHandlerBridge Create()
         {
-            Contract.Ensures(Contract.Result<IMyoErrorHandlerBridge>() != null);
+         //   Contract.Ensures(Contract.Result<IMyoErrorHandlerBridge>() != null);
 
             return new MyoErrorHandlerBridge();
         }

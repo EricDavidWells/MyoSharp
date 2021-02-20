@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 namespace MyoSharp.Device
@@ -8,7 +8,7 @@ namespace MyoSharp.Device
     /// <summary>
     /// An interface that defines a hub for managing Myos
     /// </summary>
-    [ContractClass(typeof(IHubContract))]
+  //  [ContractClass(typeof(IHubContract))]
     public interface IHub : IDisposable
     {
         #region Events
@@ -31,7 +31,7 @@ namespace MyoSharp.Device
         #endregion
     }
 
-    [ContractClassFor(typeof(IHub))]
+  //  [ContractClassFor(typeof(IHub))]
     internal abstract class IHubContract : IHub
     {
         #region Events
@@ -45,7 +45,7 @@ namespace MyoSharp.Device
         {
             get
             {
-                Contract.Ensures(Contract.Result<IReadOnlyMyoCollection>() != null);
+             //   Contract.Ensures(Contract.Result<IReadOnlyMyoCollection>() != null);
 
                 return null;
             }

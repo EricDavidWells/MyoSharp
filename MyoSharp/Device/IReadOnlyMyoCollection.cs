@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 
 namespace MyoSharp.Device
 {
     /// <summary>
     /// An interface that defines a collection of Myos.
     /// </summary>
-    [ContractClass(typeof(IReadOnlyMyoCollectionContract))]
+ //   [ContractClass(typeof(IReadOnlyMyoCollectionContract))]
     public interface IReadOnlyMyoCollection : IEnumerable<IMyo>
     {
         #region Properties
@@ -17,7 +17,7 @@ namespace MyoSharp.Device
         #endregion
     }
 
-    [ContractClassFor(typeof(IReadOnlyMyoCollection))]
+ //   [ContractClassFor(typeof(IReadOnlyMyoCollection))]
     internal abstract class IReadOnlyMyoCollectionContract : IReadOnlyMyoCollection
     {
         #region Properties
@@ -28,7 +28,7 @@ namespace MyoSharp.Device
         {
             get
             {
-                Contract.Ensures(Contract.Result<int>() >= 0);
+          //      Contract.Ensures(Contract.Result<int>() >= 0);
 
                 return default(int);
             }

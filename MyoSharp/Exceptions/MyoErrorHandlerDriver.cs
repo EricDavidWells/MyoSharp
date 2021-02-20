@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Communication;
@@ -18,7 +18,7 @@ namespace MyoSharp.Exceptions
         #region Constructors
         private MyoErrorHandlerDriver(IMyoErrorHandlerBridge myoErrorHandlerBridge)
         {
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerBridge != null, "myoErrorHandlerBridge");
+        //    Contract.Requires<ArgumentNullException>(myoErrorHandlerBridge != null, "myoErrorHandlerBridge");
 
             _myoErrorHandlerBridge = myoErrorHandlerBridge;
         }
@@ -27,8 +27,8 @@ namespace MyoSharp.Exceptions
         #region Methods
         public static IMyoErrorHandlerDriver Create(IMyoErrorHandlerBridge myoErrorHandlerBridge)
         {
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerBridge != null, "myoErrorHandlerBridge");
-            Contract.Ensures(Contract.Result<IMyoErrorHandlerDriver>() != null);
+        //    Contract.Requires<ArgumentNullException>(myoErrorHandlerBridge != null, "myoErrorHandlerBridge");
+         //   Contract.Ensures(Contract.Result<IMyoErrorHandlerDriver>() != null);
 
             return new MyoErrorHandlerDriver(myoErrorHandlerBridge);
         }
@@ -59,10 +59,10 @@ namespace MyoSharp.Exceptions
             }
         }
 
-        [ContractInvariantMethod]
+    //    [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_myoErrorHandlerBridge != null);
+      //      Contract.Invariant(_myoErrorHandlerBridge != null);
         }
         #endregion
     }

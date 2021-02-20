@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 namespace MyoSharp.Device
@@ -8,7 +8,7 @@ namespace MyoSharp.Device
     /// <summary>
     /// An interface that defines functionality for working with EMG data.
     /// </summary>
-    [ContractClass(typeof(IEmgDataContract))]
+   // [ContractClass(typeof(IEmgDataContract))]
     public interface IEmgData
     {
         #region Methods
@@ -24,13 +24,13 @@ namespace MyoSharp.Device
         #endregion
     }
 
-    [ContractClassFor(typeof(IEmgData))]
+   // [ContractClassFor(typeof(IEmgData))]
     internal abstract class IEmgDataContract : IEmgData
     {
         #region Methods
         public int GetDataForSensor(int sensor)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(sensor >= 0, "The sensor value must be greater than or equal to zero.");
+         //   Contract.Requires<ArgumentOutOfRangeException>(sensor >= 0, "The sensor value must be greater than or equal to zero.");
 
             return default(int);
         }

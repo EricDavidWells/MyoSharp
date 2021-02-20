@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 namespace MyoSharp.Device
@@ -23,8 +23,8 @@ namespace MyoSharp.Device
         public EmgDataEventArgs(IMyo myo, DateTime timestamp, IEmgData emgData)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(emgData != null, "emgData");
+       //     Contract.Requires<ArgumentNullException>(myo != null, "myo");
+      //      Contract.Requires<ArgumentNullException>(emgData != null, "emgData");
 
             this.EmgData = emgData;
         }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
 
 using MyoSharp.Internal;
 using MyoSharp.Device;
@@ -32,8 +32,8 @@ namespace MyoSharp.Communication
         /// </exception>
         private ChannelDriver(IChannelBridge channelBridge, IMyoErrorHandlerDriver myoErrorHandlerDriver)
         {
-            Contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
+            //contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
+            //contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
 
             _channelBridge = channelBridge;
             _myoErrorHandlerDriver = myoErrorHandlerDriver;
@@ -52,8 +52,8 @@ namespace MyoSharp.Communication
         [Obsolete("Please switch to the create method that takes in an IMyoErrorHandlerDriver parameter.")]
         public static IChannelDriver Create(IChannelBridge channelBridge)
         {
-            Contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
-            Contract.Ensures(Contract.Result<IChannelDriver>() != null);
+            //contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
+            //contract.Ensures(//contract.Result<IChannelDriver>() != null);
 
             return Create(channelBridge, MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create()));
         }
@@ -69,9 +69,9 @@ namespace MyoSharp.Communication
         /// </exception>
         public static IChannelDriver Create(IChannelBridge channelBridge, IMyoErrorHandlerDriver myoErrorHandlerDriver)
         {
-            Contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
-            Contract.Ensures(Contract.Result<IChannelDriver>() != null);
+            //contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
+            //contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
+            //contract.Ensures(//contract.Result<IChannelDriver>() != null);
 
             return new ChannelDriver(channelBridge, myoErrorHandlerDriver);
         }
@@ -116,7 +116,7 @@ namespace MyoSharp.Communication
                 });
             command.Execute();
 
-            Contract.Assume(hubPointer != IntPtr.Zero);
+            //contract.Assume(hubPointer != IntPtr.Zero);
             return hubPointer;
         }
 
@@ -172,11 +172,11 @@ namespace MyoSharp.Communication
                 : _channelBridge.EventGetMyo64(evt);
         }
         
-        [ContractInvariantMethod]
+        //[contractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_channelBridge != null);
-            Contract.Invariant(_myoErrorHandlerDriver != null);
+            //contract.Invariant(_channelBridge != null);
+            //contract.Invariant(_myoErrorHandlerDriver != null);
         }
         #endregion
     }

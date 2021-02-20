@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Communication;
 
 namespace MyoSharp.Commands
 {
-    [ContractClass(typeof(IMyoCommandResultContract))]
+   // [ContractClass(typeof(IMyoCommandResultContract))]
     public interface IMyoCommandResult
     {
         #region Properties
@@ -17,7 +17,7 @@ namespace MyoSharp.Commands
         #endregion
     }
 
-    [ContractClassFor(typeof(IMyoCommandResult))]
+   // [ContractClassFor(typeof(IMyoCommandResult))]
     internal abstract class IMyoCommandResultContract : IMyoCommandResult
     {
         #region Properties
@@ -25,7 +25,7 @@ namespace MyoSharp.Commands
         {
             get
             {
-                Contract.Ensures((Contract.Result<MyoResult>() == MyoResult.Success && ErrorHandle == IntPtr.Zero) || ErrorHandle != IntPtr.Zero);
+               // Contract.Ensures((Contract.Result<MyoResult>() == MyoResult.Success && ErrorHandle == IntPtr.Zero) || ErrorHandle != IntPtr.Zero);
 
                 return default(MyoResult);
             }
@@ -35,7 +35,7 @@ namespace MyoSharp.Commands
         {
             get
             {
-                Contract.Ensures((Result == MyoResult.Success && Contract.Result<IntPtr>() == IntPtr.Zero) || Contract.Result<IntPtr>() != IntPtr.Zero);
+              //  Contract.Ensures((Result == MyoResult.Success && Contract.Result<IntPtr>() == IntPtr.Zero) || Contract.Result<IntPtr>() != IntPtr.Zero);
 
                 return default(IntPtr);
             }

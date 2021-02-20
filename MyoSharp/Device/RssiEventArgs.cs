@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 namespace MyoSharp.Device
@@ -23,7 +23,7 @@ namespace MyoSharp.Device
         public RssiEventArgs(IMyo myo, DateTime timestamp, sbyte rssi)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
+            // Contract.Requires<ArgumentNullException>(myo != null, "myo");
 
             this.Rssi = rssi;
         }
