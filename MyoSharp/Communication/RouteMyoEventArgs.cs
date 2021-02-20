@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Device;
@@ -34,8 +34,8 @@ namespace MyoSharp.Communication
             MyoEventType eventType, 
             DateTime timestamp)
         {
-            Contract.Requires<ArgumentException>(myoHandle != IntPtr.Zero, "myoHandle");
-            Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "evt");
+            //Contract.Requires<ArgumentException>(myoHandle != IntPtr.Zero, "myoHandle");
+            //Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "evt");
             
             _myoHandle = myoHandle;
             _eventHandle = evt;
@@ -52,7 +52,7 @@ namespace MyoSharp.Communication
         {
             get
             {
-                Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
+                //Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
 
                 return _myoHandle;
             }
@@ -65,7 +65,7 @@ namespace MyoSharp.Communication
         {
             get
             {
-                Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
+                //Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
 
                 return _eventHandle;
             }
@@ -83,11 +83,11 @@ namespace MyoSharp.Communication
         #endregion
 
         #region Methods
-        [ContractInvariantMethod]
+        //[ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_myoHandle != IntPtr.Zero);
-            Contract.Invariant(_eventHandle != IntPtr.Zero);
+            //Contract.Invariant(_myoHandle != IntPtr.Zero);
+            //Contract.Invariant(_eventHandle != IntPtr.Zero);
         }
         #endregion
     }

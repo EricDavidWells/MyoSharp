@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Communication;
@@ -19,8 +19,8 @@ namespace MyoSharp.Commands
         #region Constructors
         private MyoCommand(IMyoErrorHandlerDriver myoErrorHandlerDriver, MyoCommandDelegate command)
         {
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
-            Contract.Requires<ArgumentNullException>(command != null, "command");
+       //     Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
+       //     Contract.Requires<ArgumentNullException>(command != null, "command");
 
             _myoErrorHandlerDriver = myoErrorHandlerDriver;
             _command = command;
@@ -30,9 +30,9 @@ namespace MyoSharp.Commands
         #region Methods
         public static IMyoCommand Create(IMyoErrorHandlerDriver myoErrorHandlerDriver, MyoCommandDelegate command)
         {
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
-            Contract.Requires<ArgumentNullException>(command != null, "command");
-            Contract.Ensures(Contract.Result<IMyoCommand>() != null);
+       //     Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
+       //     Contract.Requires<ArgumentNullException>(command != null, "command");
+       //     Contract.Ensures(Contract.Result<IMyoCommand>() != null);
 
             return new MyoCommand(myoErrorHandlerDriver, command);
         }
@@ -67,8 +67,8 @@ namespace MyoSharp.Commands
 
         private Exception CreateMyoException(IMyoCommandResult myoCommandResult)
         {
-            Contract.Requires<ArgumentNullException>(myoCommandResult != null, "myoCommandResult");
-            Contract.Requires<ArgumentException>(myoCommandResult.Result != MyoResult.Success, "The result code must not be MyoResult.Success.");
+       //     Contract.Requires<ArgumentNullException>(myoCommandResult != null, "myoCommandResult");
+      //      Contract.Requires<ArgumentException>(myoCommandResult.Result != MyoResult.Success, "The result code must not be MyoResult.Success.");
 
             var errorMessage = _myoErrorHandlerDriver.GetErrorString(myoCommandResult.ErrorHandle);
             
@@ -77,11 +77,11 @@ namespace MyoSharp.Commands
                 : (Exception)new InvalidOperationException(errorMessage);
         }
 
-        [ContractInvariantMethod]
+     //   [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_command != null);
-            Contract.Invariant(_myoErrorHandlerDriver != null);
+        //    Contract.Invariant(_command != null);
+        //    Contract.Invariant(_myoErrorHandlerDriver != null);
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 namespace MyoSharp.Device
@@ -26,7 +26,7 @@ namespace MyoSharp.Device
         /// </exception>
         public MyoEventArgs(IMyo myo, DateTime timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
+        //    Contract.Requires<ArgumentNullException>(myo != null, "myo");
 
             _myo = myo;
             _timestamp = timestamp;
@@ -41,7 +41,7 @@ namespace MyoSharp.Device
         {
             get
             {
-                Contract.Ensures(Contract.Result<IMyo>() != null);
+          //      Contract.Ensures(Contract.Result<IMyo>() != null);
 
                 return _myo;
             }
@@ -57,10 +57,10 @@ namespace MyoSharp.Device
         #endregion
 
         #region Methods
-        [ContractInvariantMethod]
+  //      [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_myo != null);
+        //    Contract.Invariant(_myo != null);
         }
         #endregion
     }

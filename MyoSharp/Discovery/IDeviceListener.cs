@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 
 using MyoSharp.Communication;
 
@@ -8,7 +8,7 @@ namespace MyoSharp.Discovery
     /// <summary>
     /// An interface that defines functionality for listening to device connectivity.
     /// </summary>
-    [ContractClass(typeof(IDeviceListenerContract))]
+  //  [ContractClass(typeof(IDeviceListenerContract))]
     public interface IDeviceListener : IDisposable
     {
         #region Events
@@ -32,7 +32,7 @@ namespace MyoSharp.Discovery
         #endregion
     }
 
-    [ContractClassFor(typeof(IDeviceListener))]
+   // [ContractClassFor(typeof(IDeviceListener))]
     internal abstract class IDeviceListenerContract : IDeviceListener
     {
         #region Events
@@ -46,7 +46,7 @@ namespace MyoSharp.Discovery
         {
             get
             {
-                Contract.Ensures(Contract.Result<IChannelListener>() != null);
+            //    Contract.Ensures(Contract.Result<IChannelListener>() != null);
 
                 return null;
             }

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Device;
 
 namespace MyoSharp.Poses
 {
-    [ContractClass(typeof(IHeldPoseContract))]
+   // [ContractClass(typeof(IHeldPoseContract))]
     public interface IHeldPose : IDisposable
     {
         #region Events
@@ -27,7 +27,7 @@ namespace MyoSharp.Poses
         #endregion
     }
 
-    [ContractClassFor(typeof(IHeldPose))]
+  //  [ContractClassFor(typeof(IHeldPose))]
     internal abstract class IHeldPoseContract : IHeldPose
     {
         #region Events
@@ -39,14 +39,14 @@ namespace MyoSharp.Poses
         {
             get
             {
-                Contract.Ensures(Contract.Result<TimeSpan>() > TimeSpan.Zero);
+            //    Contract.Ensures(Contract.Result<TimeSpan>() > TimeSpan.Zero);
 
                 return default(TimeSpan);
             }
 
             set
             {
-                Contract.Requires<ArgumentOutOfRangeException>(value > TimeSpan.Zero, "The interval must be greater than zero seconds.");
+             //   Contract.Requires<ArgumentOutOfRangeException>(value > TimeSpan.Zero, "The interval must be greater than zero seconds.");
             }
         }
         #endregion

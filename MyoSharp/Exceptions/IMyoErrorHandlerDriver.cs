@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 namespace MyoSharp.Exceptions
 {
-    [ContractClass(typeof(IMyoErrorHandlerDriverContract))]
+  //  [ContractClass(typeof(IMyoErrorHandlerDriverContract))]
     public interface IMyoErrorHandlerDriver
     {
         #region Methods
@@ -15,13 +15,13 @@ namespace MyoSharp.Exceptions
         #endregion
     }
 
-    [ContractClassFor(typeof(IMyoErrorHandlerDriver))]
+ //   [ContractClassFor(typeof(IMyoErrorHandlerDriver))]
     internal abstract class IMyoErrorHandlerDriverContract : IMyoErrorHandlerDriver
     {
         #region Methods
         public string GetErrorString(IntPtr errorHandle)
         {
-            Contract.Requires<ArgumentException>(errorHandle != IntPtr.Zero, "The error handle must be set.");
+      //      Contract.Requires<ArgumentException>(errorHandle != IntPtr.Zero, "The error handle must be set.");
 
             return default(string);
         }

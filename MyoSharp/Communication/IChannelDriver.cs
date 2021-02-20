@@ -1,11 +1,11 @@
 using System;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 
 using MyoSharp.Device;
 
 namespace MyoSharp.Communication
 {
-    [ContractClass(typeof(IChannelDriverContract))]
+   // [ContractClass(typeof(IChannelDriverContract))]
     public interface IChannelDriver
     {
         #region Methods
@@ -32,48 +32,48 @@ namespace MyoSharp.Communication
         #endregion
     }
 
-    [ContractClassFor(typeof(IChannelDriver))]
+  //  [ContractClassFor(typeof(IChannelDriver))]
     internal abstract class IChannelDriverContract : IChannelDriver
     {
         #region Methods
         public void ShutdownMyoHub(IntPtr hubPointer)
         {
-            Contract.Requires<ArgumentException>(hubPointer != IntPtr.Zero, "The pointer to the hub must be set.");
+          //  Contract.Requires<ArgumentException>(hubPointer != IntPtr.Zero, "The pointer to the hub must be set.");
         }
 
         public IntPtr InitializeMyoHub(string applicationIdentifier)
         {
-            Contract.Requires<ArgumentNullException>(applicationIdentifier != null, "applicationIdentifier");
-            Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
+          //  Contract.Requires<ArgumentNullException>(applicationIdentifier != null, "applicationIdentifier");
+          //  Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
 
             return default(IntPtr);
         }
 
         public DateTime GetEventTimestamp(IntPtr evt)
         {
-            Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The pointer to the event must be set.");
+         //   Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The pointer to the event must be set.");
             
             return default(DateTime);
         }
 
         public void Run(IntPtr hubHandle, MyoRunHandler handler, IntPtr userData)
         {
-            Contract.Requires<ArgumentException>(hubHandle != IntPtr.Zero, "The pointer to the hub must be set.");
-            Contract.Requires<ArgumentNullException>(handler != null, "handler");
-            Contract.Requires<ArgumentException>(userData != IntPtr.Zero, "The pointer to the user data must be set.");
+         //   Contract.Requires<ArgumentException>(hubHandle != IntPtr.Zero, "The pointer to the hub must be set.");
+          //  Contract.Requires<ArgumentNullException>(handler != null, "handler");
+          //  Contract.Requires<ArgumentException>(userData != IntPtr.Zero, "The pointer to the user data must be set.");
         }
 
         public MyoEventType GetEventType(IntPtr evt)
         {
-            Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The pointer to the event must be set.");
+          //  Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The pointer to the event must be set.");
 
             return default(MyoEventType);
         }
 
         public IntPtr GetMyoForEvent(IntPtr evt)
         {
-            Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The pointer to the event must be set.");
-            Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
+           // Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The pointer to the event must be set.");
+          //  Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
 
             return default(IntPtr);
         }

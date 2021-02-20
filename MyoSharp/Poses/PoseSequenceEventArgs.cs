@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Device;
@@ -18,9 +18,9 @@ namespace MyoSharp.Poses
         public PoseSequenceEventArgs(IMyo myo, DateTime timestamp, IList<Pose> poses)
             : base(myo, timestamp, poses[poses.Count - 1])
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(poses != null, "poses");
-            Contract.Requires<ArgumentException>(poses.Count > 0, "The sequence must contain at least one pose.");
+       //     Contract.Requires<ArgumentNullException>(myo != null, "myo");
+       //     Contract.Requires<ArgumentNullException>(poses != null, "poses");
+        //    Contract.Requires<ArgumentException>(poses.Count > 0, "The sequence must contain at least one pose.");
 
             // copy this list so we don't have any unexpected reference sharing
             _poses = new List<Pose>(poses).AsReadOnly();
@@ -32,7 +32,7 @@ namespace MyoSharp.Poses
         {
             get
             {
-                Contract.Ensures(Contract.Result<ReadOnlyCollection<Pose>>() != null);
+          //      Contract.Ensures(Contract.Result<ReadOnlyCollection<Pose>>() != null);
 
                 return _poses;
             }
@@ -40,10 +40,10 @@ namespace MyoSharp.Poses
         #endregion
 
         #region Methods
-        [ContractInvariantMethod]
+     //   [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_poses != null);
+      //      Contract.Invariant(_poses != null);
         }
         #endregion
     }

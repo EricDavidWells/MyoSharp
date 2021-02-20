@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+// using system.diagnostics.contracts;
 using System.Text;
 
 using MyoSharp.Communication;
@@ -17,9 +17,9 @@ namespace MyoSharp.Commands
         #region Constructors
         private MyoCommandResult(MyoResult result, IntPtr errorHandle)
         {
-            Contract.Requires<ArgumentException>(
-                (result == MyoResult.Success && errorHandle == IntPtr.Zero) || errorHandle != IntPtr.Zero,
-                "The result cannot be successful and have an error handle set.");
+         //   Contract.Requires<ArgumentException>(
+          //      (result == MyoResult.Success && errorHandle == IntPtr.Zero) || errorHandle != IntPtr.Zero,
+          //      "The result cannot be successful and have an error handle set.");
 
             _result = result;
             _errorHandle = errorHandle;
@@ -49,19 +49,19 @@ namespace MyoSharp.Commands
         #region Methods
         public static IMyoCommandResult Create(MyoResult result, IntPtr errorHandle)
         {
-            Contract.Requires<ArgumentException>(
-                (result == MyoResult.Success && errorHandle == IntPtr.Zero) || errorHandle != IntPtr.Zero,
-                "The result cannot be successful and have an error handle set.");
-            Contract.Ensures(Contract.Result<IMyoCommandResult>() != null);
+       //     Contract.Requires<ArgumentException>(
+            //    (result == MyoResult.Success && errorHandle == IntPtr.Zero) || errorHandle != IntPtr.Zero,
+           //     "The result cannot be successful and have an error handle set.");
+        //    Contract.Ensures(Contract.Result<IMyoCommandResult>() != null);
 
             return new MyoCommandResult(result, errorHandle);
         }
 
-        [ContractInvariantMethod]
+      //  [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant((_result == MyoResult.Success && _errorHandle == IntPtr.Zero) || _errorHandle != IntPtr.Zero);
-            Contract.Invariant((Result == MyoResult.Success && ErrorHandle == IntPtr.Zero) || ErrorHandle != IntPtr.Zero);
+      //      Contract.Invariant((_result == MyoResult.Success && _errorHandle == IntPtr.Zero) || _errorHandle != IntPtr.Zero);
+       //     Contract.Invariant((Result == MyoResult.Success && ErrorHandle == IntPtr.Zero) || ErrorHandle != IntPtr.Zero);
         }
         #endregion
     }
