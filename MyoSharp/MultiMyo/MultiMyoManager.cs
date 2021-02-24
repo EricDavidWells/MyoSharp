@@ -6,6 +6,7 @@ using System.Linq;
 using MyoSharp.Communication;
 using MyoSharp.Device;
 using MyoSharp.Exceptions;
+using Clifton.Tools.Data;               // For simple moving average
 
 ///-----------------------------------------------------------------
 ///   Description:    Class used to facilitate all data collection of Myo Armband through the MyoSharp library.  Works for multiple
@@ -21,6 +22,9 @@ namespace MyoSharp.MultiMyo
         IHub hub;
         IChannel channel;
         static int maxMyoNum = 10;   // max number of myos connected
+
+        int window = 40;     // The window size for the averaging filters i.e. the number of samples it averages over
+        public Clifton.Tools.Data.IMovingAverage[,] emg_data_avg = new Clifton.Tools.Data.SimpleMovingAverage[maxMyoNum, 8];    // for simplemovingaverage filter
 
         // Queue variables to hold data history
         int maxQueueLen = 10;
@@ -47,6 +51,16 @@ namespace MyoSharp.MultiMyo
 
         public MultiMyoManager()
         {
+            // initialize moving average values
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < maxMyoNum; j++)
+                {
+                    emg_data_avg[j, i] = new Clifton.Tools.Data.SimpleMovingAverage(window);
+                }
+            }
+
+            // initialize Queue's
             for (int i = 0; i < maxMyoNum; i++)
             {
                 List<float> temp_list = new List<float>();
@@ -203,6 +217,7 @@ namespace MyoSharp.MultiMyo
                 // fill data array with values
                 for (int i = 0; i < 8; i++)
                 {
+                    emg_data_avg[ind, i].AddSample(System.Math.Abs(e.EmgData.GetDataForSensor(i)));
                     emg_data[ind][i].Enqueue(e.EmgData.GetDataForSensor(i));
                     emg_data[ind][i].Dequeue();
                 }

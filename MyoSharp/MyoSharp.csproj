@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyoSharp</RootNamespace>
     <AssemblyName>MyoSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
@@ -191,6 +191,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Math\Quaternion.cs" />
     <Compile Include="Math\Vector3F.cs" />
+    <Compile Include="RunningAverage\CircularList.cs" />
+    <Compile Include="RunningAverage\IMovingAverage.cs" />
+    <Compile Include="RunningAverage\SimpleMovingAverage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\myo.dll">
