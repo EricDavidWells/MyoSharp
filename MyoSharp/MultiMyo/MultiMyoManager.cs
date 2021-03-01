@@ -29,7 +29,30 @@ namespace MyoSharp.MultiMyo
         // Queue variables to hold data history
         int maxQueueLen = 10;
         List<List<Queue<float>>> emg_data = new List<List<Queue<float>>>();    // first list: myo number, second list: emg channel, queue: data history
-        public List<List<float>> current_emg_data = new List<List<float>>();    // first list myo number, second list: emg channel
+                                                                               //public List<List<float>> current_emg_data = new List<List<float>>();    // first list myo number, second list: emg channel
+
+        /// <summary>
+        /// pulls current data based on emg_queue_indices
+        /// </summary>
+        public List<List<float>> current_emg_data
+        {
+            get
+            {
+                List<List<float>> curdata = new List<List<float>>();
+                lock (emg_data)
+                {
+                    for (int i = 0; i < ID_list.Count; i++)
+                    {
+                        curdata.Add(new List<float>());
+                        for (int j = 0; j < 8; j++)
+                        {
+                            curdata[i].Add(emg_data[i][j].ElementAt(emg_queue_ind[i]));
+                        }
+                    }
+                }
+                return curdata;
+            }
+        }
         public List<long> ID_list = new List<long>();
         public List<int> emg_queue_ind = new List<int>();
         Thread t;
@@ -163,34 +186,26 @@ namespace MyoSharp.MultiMyo
 
         private void emg_thread_loop()
         {
-            float curtime_2;
-            float prevtime_2;
+            float curtime;
+            float prevtime;
             float delay = 5f;
             sw = new Stopwatch();
             sw.Start();
 
-            curtime_2 = sw.Elapsed.Ticks * 1000f / Stopwatch.Frequency;
-            prevtime_2 = curtime_2;
+            curtime = sw.Elapsed.Ticks * 1000f / Stopwatch.Frequency;
+            prevtime = curtime;
 
             while (true)
             {
+                curtime = sw.Elapsed.Ticks * 1000f / Stopwatch.Frequency;
 
-                curtime_2 = sw.Elapsed.Ticks * 1000f / Stopwatch.Frequency;
-                if (curtime_2 - prevtime_2 > delay)
+                if (curtime - prevtime > delay)
                 {
-
-                    lock (emg_data)
+                    for (int i = 0; i < ID_list.Count; i++)
                     {
-                        for (int i = 0; i < emg_data.Count; i++)
-                        {
-                            for (int j = 0; j < 8; j++)
-                            {
-                                current_emg_data[i][j] = emg_data[i][j].ElementAt(emg_queue_ind[i]);
-                            }
-                            emg_queue_ind[i] = System.Math.Min(maxQueueLen - 1, emg_queue_ind[i] + 1);
-                        }
+                        emg_queue_ind[i] = System.Math.Min(maxQueueLen - 1, emg_queue_ind[i] + 1);
                     }
-                    prevtime_2 = curtime_2;
+                    prevtime = curtime;
                 }
             }
         }
