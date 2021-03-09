@@ -21,25 +21,25 @@ namespace MyoSharp.MultiMyo
     {
         IHub hub;
         IChannel channel;
-        static int maxMyoNum = 10;   // max number of myos connected
+        static int maxMyoNum = 4;   // max number of myos connected
 
         int window = 40;     // The window size for the averaging filters i.e. the number of samples it averages over
-        public Clifton.Tools.Data.IMovingAverage[,] emg_data_avg = new Clifton.Tools.Data.SimpleMovingAverage[maxMyoNum, 8];    // for simplemovingaverage filter
+        public Clifton.Tools.Data.IMovingAverage[,] cliffton_emg_avg = new Clifton.Tools.Data.SimpleMovingAverage[maxMyoNum, 8];    // for simplemovingaverage filter
 
         // Queue variables to hold data history
         int maxQueueLen = 10;
-        List<List<Queue<float>>> emg_data = new List<List<Queue<float>>>();    // first list: myo number, second list: emg channel, queue: data history
+        public List<List<Queue<float>>> emg_data = new List<List<Queue<float>>>();    // first list: myo number, second list: emg channel, queue: data history
                                                                                //public List<List<float>> current_emg_data = new List<List<float>>();    // first list myo number, second list: emg channel
 
         /// <summary>
         /// pulls current data based on emg_queue_indices
         /// </summary>
-        public List<List<float>> current_emg_data
+        public List<List<float>> Current_emg_data
         {
             get
             {
                 List<List<float>> curdata = new List<List<float>>();
-                lock (emg_data)
+                lock (lock_obj)
                 {
                     for (int i = 0; i < ID_list.Count; i++)
                     {
@@ -53,6 +53,30 @@ namespace MyoSharp.MultiMyo
                 return curdata;
             }
         }
+
+        /// <summary>
+        /// pulls average emg data from queue's
+        /// </summary>
+        public List<List<float>> Avg_emg_data
+        {
+            get
+            {
+                List<List<float>> avg_data = new List<List<float>>();
+                lock (lock_obj)
+                {
+                    for (int i=0; i<ID_list.Count; i++)
+                    {
+                        avg_data.Add(new List<float>());
+                        for (int j = 0; j < 8; j++)
+                        {
+                            avg_data[i].Add(emg_data[i][j].Average());
+                        }
+                    }
+                }
+                return avg_data;
+            }
+        }
+
         public List<long> ID_list = new List<long>();
         public List<int> emg_queue_ind = new List<int>();
         Thread t;
@@ -72,16 +96,21 @@ namespace MyoSharp.MultiMyo
         Stopwatch sw = Stopwatch.StartNew();
         public bool buzzflag = false;
 
+        // lock for lock-safe data reading
+        public object lock_obj = new object();
+
         public MultiMyoManager()
         {
+
             // initialize moving average values
             for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < maxMyoNum; j++)
                 {
-                    emg_data_avg[j, i] = new Clifton.Tools.Data.SimpleMovingAverage(window);
+                for (int j = 0; j < maxMyoNum; j++)
+                    {
+                    cliffton_emg_avg[j, i] = new Clifton.Tools.Data.SimpleMovingAverage(window);
+                    cliffton_emg_avg[j, i].AddSample(0);
+                    }
                 }
-            }
 
             // initialize Queue's
             for (int i = 0; i < maxMyoNum; i++)
@@ -101,7 +130,7 @@ namespace MyoSharp.MultiMyo
                     temp_list_queue.Add(temp_queue);
                 }
                 emg_data.Add(temp_list_queue);
-                current_emg_data.Add(temp_list);
+                //Current_emg_data.Add(temp_list);
                 emg_queue_ind.Add(0);
             }
         }
@@ -227,12 +256,12 @@ namespace MyoSharp.MultiMyo
                 buzzflag = false;
             }
 
-            lock (emg_data)
+            lock (lock_obj)
             {
                 // fill data array with values
                 for (int i = 0; i < 8; i++)
                 {
-                    emg_data_avg[ind, i].AddSample(System.Math.Abs(e.EmgData.GetDataForSensor(i)));
+                    cliffton_emg_avg[ind, i].AddSample(System.Math.Abs(e.EmgData.GetDataForSensor(i)));
                     emg_data[ind][i].Enqueue(e.EmgData.GetDataForSensor(i));
                     emg_data[ind][i].Dequeue();
                 }
