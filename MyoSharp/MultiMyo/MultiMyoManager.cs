@@ -29,7 +29,6 @@ namespace MyoSharp.MultiMyo
         // Queue variables to hold data history
         int maxQueueLen = 10;
         public List<List<Queue<float>>> emg_data = new List<List<Queue<float>>>();    // first list: myo number, second list: emg channel, queue: data history
-                                                                               //public List<List<float>> current_emg_data = new List<List<float>>();    // first list myo number, second list: emg channel
 
         /// <summary>
         /// pulls current data based on emg_queue_indices
