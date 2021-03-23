@@ -307,9 +307,9 @@ namespace MyoSharp.MultiMyo
         public void Dispose()
         {
             // delete all streaming related objects
-            channel.Dispose();
+            //channel.Dispose();
             hub.Dispose();
-            this.Dispose();
+            t.Abort();
         }
     }
 }
