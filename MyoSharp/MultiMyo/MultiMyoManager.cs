@@ -54,6 +54,52 @@ namespace MyoSharp.MultiMyo
         }
 
         /// <summary>
+        /// pulls current accelerometer data
+        /// </summary>
+        public List<List<double>> Current_acc_data
+        {
+            get
+            {
+                List<List<double>> curdata = new List<List<double>>();
+                lock (lock_obj)
+                {
+                    for (int i = 0; i < ID_list.Count; i++)
+                    {
+                        curdata.Add(new List<double>());
+                        for (int j = 0; j < 3; j++)
+                        {
+                            curdata[i].Add(acc_data[i,j]);
+                        }
+                    }
+                }
+                return curdata;
+            }
+        }
+
+        /// <summary>
+        /// pulls current gyroscope data
+        /// </summary>
+        public List<List<double>> Current_gyro_data
+        {
+            get
+            {
+                List<List<double>> curdata = new List<List<double>>();
+                lock (lock_obj)
+                {
+                    for (int i = 0; i < ID_list.Count; i++)
+                    {
+                        curdata.Add(new List<double>());
+                        for (int j = 0; j < 3; j++)
+                        {
+                            curdata[i].Add(gyro_data[i, j]);
+                        }
+                    }
+                }
+                return curdata;
+            }
+        }
+
+        /// <summary>
         /// pulls average emg data from queue's
         /// </summary>
         public List<List<float>> Avg_emg_data
@@ -172,9 +218,12 @@ namespace MyoSharp.MultiMyo
 
             // add ID of myo to the IDList
             long handle = (long)e.Myo.Handle;
-            if (!ID_list.Contains(handle))
+            lock (lock_obj)
             {
-                ID_list.Add(handle);
+                if (!ID_list.Contains(handle))
+                {
+                    ID_list.Add(handle);
+                }
             }
 
             // add data acquisition functions based on set data stream flags
@@ -209,7 +258,11 @@ namespace MyoSharp.MultiMyo
 
             // delete ID of Myo from the IDList
             long handle = (long)e.Myo.Handle;
-            ID_list.Remove(handle);
+
+            lock (lock_obj)
+            {
+                ID_list.Remove(handle);
+            }
         }
 
         private void emg_thread_loop()
@@ -229,9 +282,12 @@ namespace MyoSharp.MultiMyo
 
                 if (curtime - prevtime > delay)
                 {
-                    for (int i = 0; i < ID_list.Count; i++)
+                    lock (lock_obj)
                     {
-                        emg_queue_ind[i] = System.Math.Min(maxQueueLen - 1, emg_queue_ind[i] + 1);
+                        for (int i = 0; i < ID_list.Count; i++)
+                        {
+                            emg_queue_ind[i] = System.Math.Min(maxQueueLen - 1, emg_queue_ind[i] + 1);
+                        }
                     }
                     prevtime = curtime;
                 }
@@ -285,10 +341,12 @@ namespace MyoSharp.MultiMyo
             long handle = (long)e.Myo.Handle;
             int ind = ID_list.IndexOf(handle);
 
-            acc_data[ind, 0] = e.Accelerometer.X;
-            acc_data[ind, 1] = e.Accelerometer.Y;
-            acc_data[ind, 2] = e.Accelerometer.Z;
-
+            lock (lock_obj)
+            {
+                acc_data[ind, 0] = e.Accelerometer.X;
+                acc_data[ind, 1] = e.Accelerometer.Y;
+                acc_data[ind, 2] = e.Accelerometer.Z;
+            }
         }
 
         private void Myo_gyroDataAcquired(object sender, GyroscopeDataEventArgs e)
@@ -298,9 +356,12 @@ namespace MyoSharp.MultiMyo
             long handle = (long)e.Myo.Handle;
             int ind = ID_list.IndexOf(handle);
 
-            gyro_data[ind, 0] = e.Gyroscope.X;
-            gyro_data[ind, 1] = e.Gyroscope.Y;
-            gyro_data[ind, 2] = e.Gyroscope.Z;
+            lock (lock_obj)
+            {
+                gyro_data[ind, 0] = e.Gyroscope.X;
+                gyro_data[ind, 1] = e.Gyroscope.Y;
+                gyro_data[ind, 2] = e.Gyroscope.Z;
+            }
 
         }
 
